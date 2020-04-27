@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2> Bienvenue sur la page mes produits ! </h2><br/>
+
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">Nom produits</th>
+        <th scope="col">Marque</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Date d'achat</th>
+        <th scope="col">Date de péremption</th>
+        <th scope="col">Etat</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for Histoproduit in Histoproduits %}
+        <tr class="table-light">
+    
+        <td>{{ Histoproduit.produit.nom }}</td>
+        <td>{{ Histoproduit.produit.marque }}</td>
+        <td>En attente...</td>        
+        <td>{{ Histoproduit.DateAchat | date('d/m/Y') }}</td>
+        <td>{{ Histoproduit.datelimite | date('d/m/Y') }}</td>
+        <td>                  
+            {% if Histoproduit.DateLimite|date("m/d/Y") < "now"|date("m/d/Y") %}
+                <button type="button" class="btn btn-danger">Périmé</button>
+            {% elseif (Histoproduit.etatH == "Frigo") %}
+                <button type="button" class="btn btn-info">Au frigo</button>
+            {% elseif Histoproduit.etatH == "Consommé" and Histoproduit.DateLimite|date("m/d/Y") > "now"|date("m/d/Y") %}
+                <button type="button" class="btn btn-success">Consommé</button>
+            {% else %}
+                <button type="button" class="btn btn-warning disabled">Pas dans le Frigo</button>
+            {% endif %}
+        </td>
+    {% endfor %}
+        </tr>
+    </tbody>
+    </table> 
+
+
+
+{% endblock %}

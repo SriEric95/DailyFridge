@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2> Bienvenue sur la page mes produits périmés ! </h2><br/>
+
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">Nom produits</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Date de péremption</th>
+        <th scope="col">Etat</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for produitsPerime in produitsPerimes %}
+    
+        <tr class="table-light">
+    
+            <td>{{ produitsPerime.produit.nom }}</td>
+            <td>Quantite..</td>
+            <td>{{ produitsPerime.DateLimite | date('d/m/Y') }}</td>
+            <td>
+                <button type="button" class="btn btn-danger">Périmé</button>
+            </td>
+         </tr>
+    {% endfor %}
+       
+    </tbody>
+    </table> 
+
+
+
+{% endblock %}
